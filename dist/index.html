@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tekom Technologia - Mapa Sandbox</title>
+    <script type="module" crossorigin src="/assets/index-unJjtBM_.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BM-stIcz.css">
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute; visibility: hidden;">
+      <defs>
+        <filter id="duotone-filter">
+          <feColorMatrix type="matrix"
+            result="grayscale"
+            values="0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0" />
+          <feComponentTransfer color-interpolation-filters="sRGB" result="duotone">
+            <feFuncR type="table" tableValues="0.090 0.992" />
+            <feFuncG type="table" tableValues="0.160 0.890" />
+            <feFuncB type="table" tableValues="0.337 0.176" />
+            <feFuncA type="table" tableValues="0 1" />
+          </feComponentTransfer>
+        </filter>
+
+        <filter id="sketch-filter">
+          <feColorMatrix type="matrix" in="SourceGraphic" result="grayscale"
+            values="0.33 0.33 0.33 0 0 
+                    0.33 0.33 0.33 0 0 
+                    0.33 0.33 0.33 0 0 
+                    0 0 0 1 0" />
+
+          <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
+          
+          <feDisplacementMap in="grayscale" in2="noise" scale="4" />
+        </filter>
+      </defs>
+    </svg>
+    
+    <div id="map"></div>
+
+    <div class="controls dark-theme">
+      <header class="controls-header">
+        <div class="style-switcher">
+          <button class="active" data-style="style1">Styl 1</button>
+          <button data-style="style2">Styl 2</button>
+        </div>
+      </header>
+
+      <nav class="tabs">
+        <button class="active" data-tab="css">Filtry CSS</button>
+        <button data-tab="svg">Filtry SVG</button>
+        <button data-tab="settings">Ustawienia</button>
+      </nav>
+
+      <main class="tab-content-container">
+        <div class="tab-content active" id="tab-css">
+          <div class="control-row">
+            <label for="grayscale">Skala szarości</label>
+            <input id="grayscale" type="range" min="0" max="100" step="1" value="0" /><output id="grayscale-value">0%</output>
+          </div>
+          <div class="control-row">
+            <label for="invert">Inwersja</label>
+            <input id="invert" type="range" min="0" max="100" step="1" value="0" /><output id="invert-value">0%</output>
+          </div>
+          <div class="control-row">
+            <label for="sepia">Sepia</label>
+            <input id="sepia" type="range" min="0" max="100" step="1" value="0" /><output id="sepia-value">0%</output>
+          </div>
+          <div class="control-row">
+            <label for="brightness">Jasność</label>
+            <input id="brightness" type="range" min="0" max="200" step="1" value="100" /><output id="brightness-value">100%</output>
+          </div>
+          <div class="control-row">
+            <label for="blur">Rozmycie</label>
+            <input id="blur" type="range" min="0" max="20" step="0.1" value="0" /><output id="blur-value">0px</output>
+          </div>
+          <div class="control-row">
+            <label for="hue-rotate">Rotacja barw</label>
+            <input id="hue-rotate" type="range" min="0" max="360" step="1" value="0" /><output id="hue-rotate-value">0deg</output>
+          </div>
+          <div class="control-row">
+            <label for="saturate">Nasycenie</label>
+            <input id="saturate" type="range" min="0" max="300" step="1" value="100" /><output id="saturate-value">100%</output>
+          </div>
+          <div class="control-row">
+            <label for="contrast">Kontrast</label>
+            <input id="contrast" type="range" min="0" max="300" step="1" value="100" /><output id="contrast-value">100%</output>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-svg">
+          <div class="control-row stacked">
+            <label for="svg-filter-select">Wybierz efekt SVG</label>
+            <select id="svg-filter-select" class="control-select">
+              <option value="none">Brak (wyłączony)</option>
+              <option value="duotone">Duotone</option>
+              <!-- <option value="sketch">Szkic Ołówkiem</option> -->
+            </select>
+          </div>
+          
+          <div id="duotone-controls" class="svg-controls-container">
+            <div class="control-row">
+              <label for="duotone-color1">Kolor cieni</label>
+              <input id="duotone-color1" type="color" value="#172956" />
+            </div>
+            <div class="control-row">
+              <label for="duotone-color2">Kolor świateł</label>
+              <input id="duotone-color2" type="color" value="#fde42d" />
+            </div>
+          </div>
+
+          <div id="sketch-controls" class="svg-controls-container">
+            <div class="control-row">
+              <label for="sketch-turbulence">Ziarnistość</label>
+              <input id="sketch-turbulence" type="range" min="0.001" max="0.1" step="0.001" value="0.02" />
+              <output id="sketch-turbulence-value">0.020</output>
+            </div>
+            <div class="control-row">
+              <label for="sketch-displacement">Siła deformacji</label>
+              <input id="sketch-displacement" type="range" min="0" max="20" step="0.5" value="4" />
+              <output id="sketch-displacement-value">4.0</output>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-settings">
+          <div class="control-row stacked">
+            <label>Podkład Mapy</label>
+            <div class="segmented-control layer-switcher">
+              <button class="active" data-layer="osm">Domyślna</button><button data-layer="satellite">Satelita</button><button data-layer="dark">Ciemna</button><button data-layer="light">Jasna</button>
+            </div>
+          </div>
+          <div class="control-row stacked">
+            <label for="animation-speed">Szybkość przejścia</label>
+            <input id="animation-speed" type="range" min="20" max="2000" step="10" value="750" /><output id="animation-speed-value">750ms</output>
+          </div>
+          <div class="control-row stacked">
+            <label>Rodzaj przejścia</label>
+            <div class="segmented-control easing-switcher">
+              <button class="active" data-easing="linear">Liniowe</button><button data-easing="easeIn">In</button><button data-easing="easeOut">Out</button><button data-easing="easeInOut">In-Out</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="controls-footer">
+        <button id="reset-btn" class="control-button">Resetuj aktywny styl</button>
+      </footer>
+    </div>
+    
+  </body>
+</html>
